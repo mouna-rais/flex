@@ -5,6 +5,7 @@ include("cnx.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $email = trim($_POST['email']);
     
     // Vérification de l'existence de l'utilisateur
     $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
@@ -22,18 +23,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $user['role']; // Stocker le rôle complet
+            $_SESSION['role'] = $user['role'];
             
-            // Message de succès avec redirection vers le dashboard
+            // Déterminer la redirection en fonction du rôle
+            $dashbord = ($user['role'] === 'admin') ? 'dashbord.php' : 'dashbord.php';
+            
+            // Message de succès
             $_SESSION['alert'] = [
                 'type' => 'success',
                 'title' => 'Connexion réussie',
                 'text' => 'Redirection vers votre tableau de bord...',
-                'redirect' => 'dashbord.php'
+                'redirect' => $dashbord
             ];
             
-            // Redirection immédiate vers le dashboard
-            header("Location: dashbord.php");
+            // Redirection
+            header("Location: " . $dashbord);
             exit();
         }
     }
@@ -42,11 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['alert'] = [
         'type' => 'error',
         'title' => 'Échec de la connexion',
-        'text' => "Nom d\'utilisateur ou mot de passe incorrect",
-        'redirect' => false,
+        'text' => 'Identifiants incorrects',
+        'redirect' => false
     ];
     
-    header("Location: login_process.php");
+    header("Location: ../page/auth_login.html");
     exit();
 }
 ?>
