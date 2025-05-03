@@ -6,9 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     
-    // Check if user exists
+    // Vérification de l'existence de l'utilisateur
     $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $cnx->prepare($sql);
     $stmt->bind_param("ss", $username, $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -16,21 +16,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
         
-        // Verify password
-        if (password_verify($password, $user['password'])) {
-            // Set session variables
+        // Vérification du mot de passe
+        if (password_verify($password, $user['password_hash'])) {
+            // Création de la session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            $_SESSION['is_admin'] = ($user['username'] == 'admin'); // Simple admin check
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role']; // Stocker le rôle complet
             
-            // Redirect to home page
-            header("Location: /index.php");
+            // Message de succès avec redirection vers le dashboard
+            $_SESSION['alert'] = [
+                'type' => 'success',
+                'title' => 'Connexion réussie',
+                'text' => 'Redirection vers votre tableau de bord...',
+                'redirect' => 'dashbord.php'
+            ];
+            
+            // Redirection immédiate vers le dashboard
+            header("Location: dashbord.php");
             exit();
         }
     }
     
-    // If login fails
-    header("Location: /auth/login.php?error=Invalid username or password");
+    // En cas d'échec
+    $_SESSION['alert'] = [
+        'type' => 'error',
+        'title' => 'Échec de la connexion',
+        'text' => "Nom d\'utilisateur ou mot de passe incorrect",
+        'redirect' => false,
+    ];
+    
+    header("Location: login_process.php");
     exit();
 }
 ?>
