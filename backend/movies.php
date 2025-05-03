@@ -175,7 +175,7 @@ body {
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="dashbord.php">
                     <i class="bi bi-speedometer2"></i>
                     Tableau de bord
                 </a>

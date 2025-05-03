@@ -301,7 +301,7 @@ $role = $_SESSION['role'];
             <!-- Main content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <h1 class="section-title">
-                    <i class="bi bi-camera-reels"></i> Tableau de bord Cinéma
+                    <i class="bi bi-camera-reels"></i> Tableau de bord
                 </h1>
 
                 <!-- Cards Section -->
@@ -350,7 +350,7 @@ $role = $_SESSION['role'];
                                     </div>
                                     <i class="bi bi-shield-lock card-icon"></i>
                                 </div>
-                                <a href="admin/dashboard.php" class="stretched-link"></a>
+                                <a href="dashbord.php" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
