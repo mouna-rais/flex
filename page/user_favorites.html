@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My List | MovieFlix</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <a href="index.html" class="logo">MOVIEFLIX</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html?type=tvshow">TV Shows</a></li>
+                <li><a href="listings.html?type=movie">Movies</a></li>
+                <li><a href="user_favorites.html" class="active">My List</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="auth_login.html" class="btn btn-rounded">Sign Out</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="section">
+        <div class="container">
+            <h1>My List</h1>
+            
+            <div class="user-listings-grid">
+                <div class="listing-item">
+                    <img src="../assets/images/action/inception.jpg" alt="Inception">
+                    <h3>Inception</h3>
+                    <div class="listing-meta">
+                        <span class="year">2010</span>
+                        <span class="type">Movie</span>
+                        <span class="rating"><i class="fas fa-star"></i> 8.8</span>
+                    </div>
+                    <div class="actions">
+                        <a href="reviews.html?movie_id=1" class="btn small">Watch</a>
+                        <button class="btn small danger remove-item" data-id="1">Remove</button>
+                    </div>
+                </div>
+                <!-- Add more favorites -->
+            </div>
+            
+            <div class="empty-state" style="display: none;">
+                <h2>Your list is empty</h2>
+                <p>Add movies and TV shows to your list to watch them later.</p>
+                <a href="listings.html" class="btn">Browse Titles</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 MovieFlix. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Change header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Remove item functionality
+        document.querySelectorAll('.remove-item').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (confirm('Remove this item from your list?')) {
+                    this.closest('.listing-item').remove();
+                    // Show empty state if no items left
+                    if (document.querySelectorAll('.listing-item').length === 0) {
+                        document.querySelector('.empty-state').style.display = 'block';
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

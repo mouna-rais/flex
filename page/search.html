@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Movies & TV Shows</title>
+    <link rel="stylesheet" href="../style.css">
+    <!-- Include Font Awesome for stars -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">MovieFlix</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html">Listings</a></li>
+                <li><a href="auth_login.html">Login</a></li>
+                <li><a href="auth_register.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h1>Search Movies & TV Shows</h1>
+
+        <!-- Search Form -->
+        <div class="search-container">
+            <form method="get" action="search.html">
+                <input type="text" name="query" placeholder="Search by title, genre, or year..." value="">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
+
+        <!-- Static Search Results -->
+        <div class="search-results">
+            <h2>Search Results for "Inception"</h2>
+            
+            <!-- Search Results Grid -->
+            <div class="results-grid">
+                <div class="result-item">
+                    <img src="assets/images/inception.jpg" alt="Inception">
+                    <h3>Inception</h3>
+                    <div class="result-meta">
+                        <span class="year">2010</span>
+                        <span class="type">Movie</span>
+                        <span class="rating"><i class="fas fa-star"></i> 8.8</span>
+                    </div>
+                    <a href="reviews.html?movie_id=1" class="btn">View Details</a>
+                </div>
+
+                <div class="result-item">
+                    <img src="assets/images/avengers.jpg" alt="Avengers: Endgame">
+                    <h3>Avengers: Endgame</h3>
+                    <div class="result-meta">
+                        <span class="year">2019</span>
+                        <span class="type">Movie</span>
+                        <span class="rating"><i class="fas fa-star"></i> 8.4</span>
+                    </div>
+                    <a href="reviews.html?movie_id=2" class="btn">View Details</a>
+                </div>
+
+                <div class="result-item">
+                    <img src="assets/images/friends.jpg" alt="Friends">
+                    <h3>Friends</h3>
+                    <div class="result-meta">
+                        <span class="year">1994</span>
+                        <span class="type">TV Show</span>
+                        <span class="rating"><i class="fas fa-star"></i> 8.9</span>
+                    </div>
+                    <a href="reviews.html?movie_id=3" class="btn">View Details</a>
+                </div>
+
+                <!-- Add more result items as needed -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 MovieFlix. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | MovieFlix</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .form-group.inline {
+        display: flex;
+        align-items: center;
+    }
+    .form-group.inline label {
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <a href="index.html" class="logo">MOVIEFLIX</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html">TV Shows</a></li>
+                <li><a href="listings.html">Movies</a></li>
+                <li><a href="user_favorites.html">My List</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="auth_login.html" class="btn btn-rounded">Sign In</a>
+            </div>
+        </nav>
+    </header>
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="auth-form">
+            <h1>Sign Up</h1>        
+            <form action="../backend/register_process.php" method="post">
+                <div class="form-group">
+                    <label for="user">Nom d'utilisateur:</label>
+                    <input type="text" id="user" name="user" placeholder="Nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe:</label>
+                    <input type="password" id="password" name="password" placeholder="mot de passe" required>
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirmer le Mot de passe:</label>
+                    <input type="password" id="password2" name="password2" placeholder="Confirmer mot de passe" required>
+                </div>
+                <!-- Groupe modifié avec la classe inline -->
+                <div class="form-group inline">
+                    <input type="checkbox" id="affiche">
+                    <label for="affiche" style="width: 5000px;">Afficher le mot de passe</label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn">Get Started</button>
+                </div>
+            </form>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="auth_login.html">Sign in</a>.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        document.getElementById('affiche').addEventListener('change', function() {
+        const passwordField = document.getElementById('password');
+        const passwordField2 = document.getElementById('password2');
+        if (this.checked) {
+            passwordField.type = 'text';
+            passwordField2.type='text';
+        } else {
+            passwordField.type = 'password';
+            passwordField2.type='password';
+            
+        }
+        });
+    </script>
+    <footer>
+        <p>&copy; 2025 MovieFlix. All rights reserved.</p>
+    </footer>
+</body>
+</html>

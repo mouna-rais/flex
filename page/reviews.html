@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inception | MovieFlix</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <a href="index.html" class="logo">MOVIEFLIX</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html?type=tvshow">TV Shows</a></li>
+                <li><a href="listings.html?type=movie">Movies</a></li>
+                <li><a href="user_favorites.html">My List</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="auth_login.html" class="btn btn-rounded">Sign In</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Movie Detail Section -->
+    <div class="movie-detail">
+        <div class="movie-poster">
+            <img src="../assets/images/action/inception.jpg" alt="Inception">
+        </div>
+        <div class="movie-info">
+            <h1>Inception</h1>
+            <div class="movie-meta">
+                <span>2010</span>
+                <span>PG-13</span>
+                <span>2h 28m</span>
+                <span class="rating"><i class="fas fa-star"></i> 8.8</span>
+            </div>
+            <p class="description">A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.</p>
+
+            <div class="user-actions">
+                <button class="btn" id="play-btn">
+                    <i class="fas fa-play"></i> Play
+                </button>
+                <button class="btn" id="favorite-btn">
+                    <i class="fas fa-plus"></i> My List
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- More Info Section -->
+    <div class="section">
+        <h3>More Info</h3>
+        <p>Director: Christopher Nolan</p>
+        <p>Cast: Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page, Tom Hardy</p>
+        <p>Genres: Sci-Fi, Action, Thriller</p>
+    </div>
+
+    <!-- Similar Titles -->
+    <div class="section">
+        <h3>More Like This</h3>
+        <div class="carousel">
+            <!-- Add similar titles -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 MovieFlix. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Change header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Button functionality
+        document.getElementById('favorite-btn').addEventListener('click', function() {
+            const btn = document.getElementById('favorite-btn');
+            btn.innerHTML = btn.innerHTML.includes('Added') ? 
+                '<i class="fas fa-plus"></i> My List' : 
+                '<i class="fas fa-check"></i> Added';
+        });
+    </script>
+
+</body>
+</html>
