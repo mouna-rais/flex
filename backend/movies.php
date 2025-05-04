@@ -4,7 +4,7 @@ include("cnx.php");
 
 // Vérification du rôle admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../auth_login.php");
+    header("Location: ../auth_login.html");
     exit();
 }
 
@@ -252,7 +252,7 @@ try {
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-admin">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../dashboard.php">
+                <a class="navbar-brand" href="../dashbord.php">
                     <i class="bi bi-camera-reels me-2"></i>MovieFlex
                 </a>
                 <div class="d-flex align-items-center">
@@ -271,7 +271,7 @@ try {
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="dashboard.php">
+                            <a class="nav-link" href="dashbord.php">
                                 <i class="bi bi-speedometer2"></i>
                                 Tableau de bord
                             </a>
@@ -283,7 +283,7 @@ try {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="users.php">
+                            <a class="nav-link" href="delete_user.php">
                                 <i class="bi bi-people"></i>
                                 Gestion des utilisateurs
                             </a>

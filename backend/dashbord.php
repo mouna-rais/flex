@@ -257,7 +257,7 @@ $role = $_SESSION['role'];
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="dashboard.php">
+                            <a class="nav-link active" href="dashbord.php">
                                 <i class="bi bi-speedometer2"></i>
                                 Tableau de bord
                             </a>
@@ -282,7 +282,7 @@ $role = $_SESSION['role'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin/users.php">
+                            <a class="nav-link" href="delete_user.php">
                                 <i class="bi bi-people"></i>
                                 Gestion des utilisateurs
                             </a>
