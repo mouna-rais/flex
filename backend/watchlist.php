@@ -333,7 +333,7 @@ main {
                         <div class="recent-movie h-100 position-relative">
                             <img src="<?= htmlspecialchars($movie['poster_path']) ?>" 
                                  class="movie-poster w-100"
-                                 alt="<?= htmlspecialchars($movie['title']) ?>">
+                                 alt="<?= htmlspecialchars($movie['title']) ?>" style="height: auto;">
                             <div class="p-3">
                                 <center><h5 class="text-truncate" style="margin-bottom: 50px;"><?= htmlspecialchars($movie['title']) ?></h5></center>
                                 <div class="d-flex justify-content-between align-items-center mb-2">

@@ -72,7 +72,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
     <div class="container-fluid">
         <!-- Brand -->
-        <a class="navbar-brand" href="dashboard.php">
+        <a class="navbar-brand" href="dashbord.php">
             <i class="bi bi-camera-reels me-2"></i>MovieFlex Admin
         </a>
 

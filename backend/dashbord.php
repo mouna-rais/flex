@@ -277,12 +277,7 @@ $role = $_SESSION['role'];
                                 Tableau de bord
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="movies.php">
-                                <i class="bi bi-film"></i>
-                                Films
-                            </a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="watchlist.php">
                                 <i class="bi bi-bookmark-heart"></i>
@@ -379,7 +374,7 @@ $role = $_SESSION['role'];
                                     <div class="recent-movie h-100" data-id="<?= $movie['id'] ?>">
                                         <img src="<?= htmlspecialchars($movie['poster_path']) ?>" 
                                              class="movie-poster" 
-                                             alt="<?= htmlspecialchars($movie['title']) ?>">
+                                             alt="<?= htmlspecialchars($movie['title']) ?>" style="height: auto;">
                                         <div class="p-3">
                                             <h5><?= htmlspecialchars($movie['title']) ?></h5>
                                             <p class="text-secondary"><?= htmlspecialchars($movie['genre']) ?></p>

@@ -8,7 +8,7 @@ $role = $_SESSION['role'] ?? 'user';
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link <?= basename($_SERVER['PHP_SELF']) === 'dashbord.php' ? 'active' : '' ?>" 
-                   href="dashboard.php">
+                   href="dashbord.php">
                     <i class="bi bi-speedometer2 me-2"></i>
                     Tableau de bord
                 </a>
