@@ -18,8 +18,8 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         <div class="collapse navbar-collapse" id="adminNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link <?= basename($_SERVER['PHP_SELF']) === 'dashboard.php' ? 'active' : '' ?>" 
-                       href="dashboard.php">
+                    <a class="nav-link <?= basename($_SERVER['PHP_SELF']) === 'dashbord.php' ? 'active' : '' ?>" 
+                       href="dashbord.php">
                         <i class="bi bi-speedometer2 me-2"></i>Tableau de bord
                     </a>
                 </li>
@@ -29,12 +29,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                         <i class="bi bi-film me-2"></i>Films
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= basename($_SERVER['PHP_SELF']) === 'users.php' ? 'active' : '' ?>" 
-                       href="users.php">
-                        <i class="bi bi-people me-2"></i>Utilisateurs
-                    </a>
-                </li>
+                
             </ul>
 
             <!-- User Section -->

@@ -14,33 +14,6 @@ $role = $_SESSION['role'] ?? 'user';
                 </a>
             </li>
             
-            <li class="nav-item">
-                <a class="nav-link <?= basename($_SERVER['PHP_SELF']) === 'movies.php' ? 'active' : '' ?>" 
-                   href="movies.php">
-                    <i class="bi bi-film me-2"></i>
-                    Gestion des films
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link <?= basename($_SERVER['PHP_SELF']) === 'users.php' ? 'active' : '' ?>" 
-                   href="users.php">
-                    <i class="bi bi-people me-2"></i>
-                    Gestion des utilisateurs
-                </a>
-            </li>
-
-            <?php if ($role === 'admin'): ?>
-            <div class="sidebar-divider my-4"></div>
-            <li class="nav-item">
-                <a class="nav-link <?= basename($_SERVER['PHP_SELF']) === 'analytics.php' ? 'active' : '' ?>" 
-                   href="analytics.php">
-                    <i class="bi bi-graph-up me-2"></i>
-                    Statistiques
-                </a>
-            </li>
-            <?php endif; ?>
-
             <div class="sidebar-divider my-4"></div>
             <li class="nav-item">
                 <a class="nav-link <?= basename($_SERVER['PHP_SELF']) === 'profile.php' ? 'active' : '' ?>" 

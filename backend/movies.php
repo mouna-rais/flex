@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'])) {
     $genre = trim($_POST['genre']);
     $duration = trim($_POST['duration']);
     $director = trim($_POST['director']);
+    $link=trim($_POST['link']);
 
     try {
         // Validation du fichier
@@ -101,11 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'])) {
         }
 
         // Insertion en base de données
-        $stmt = $cnx->prepare("INSERT INTO movies (title, description, year, genre, duration, director, poster_path) 
-                             VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $cnx->prepare("INSERT INTO movies (title, description, year, genre, duration, director, poster_path,link) 
+                             VALUES (?, ?, ?, ?, ?, ?, ?,?)");
         if (!$stmt) throw new Exception("Erreur de préparation (INSERT): " . $cnx->error);
         
-        $stmt->bind_param("ssissss", $title, $description, $year, $genre, $duration, $director, $targetPath);
+        $stmt->bind_param("ssisssss", $title, $description, $year, $genre, $duration, $director, $targetPath,$link);
         
         if (!$stmt->execute()) {
             unlink($targetPath); // Nettoyage du fichier en cas d'erreur
@@ -187,6 +188,7 @@ try {
 
         .table img {
             border-radius: 4px;
+            
         }
 
         .btn-primary {
@@ -252,7 +254,7 @@ try {
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-admin">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../dashbord.php">
+                <a class="navbar-brand" href="dashbord.php">
                     <i class="bi bi-camera-reels me-2"></i>MovieFlex
                 </a>
                 <div class="d-flex align-items-center">
@@ -342,6 +344,11 @@ try {
                                     <label for="poster" class="form-label">Affiche du film</label>
                                     <input type="file" class="form-control" id="poster" name="poster" accept="image/jpeg, image/png, image/webp" required>
                                     <div class="form-text">Formats acceptés: JPG, PNG, WEBP (max 5MB)</div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="poster" class="form-label">Link de la film</label>
+                                    <input type="input" class="form-control" id="poster" name="link" required>
+                                    
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">Ajouter le film</button>

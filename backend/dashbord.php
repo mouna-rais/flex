@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("cnx.php");
 
 // Vérification de la connexion
 if (!isset($_SESSION['user_id'])) {
@@ -11,6 +12,21 @@ if (!isset($_SESSION['user_id'])) {
     ];
     header("Location: login.php");
     exit();
+}
+
+// Récupération des nouveautés depuis la base de données
+try {
+    $query = "SELECT * FROM movies ORDER BY year DESC LIMIT 4";
+    $result = $cnx->query($query);
+    
+    // Vérification du succès de la requête
+    if ($result === false) {
+        throw new Exception("Erreur de requête : " . $cnx->error);
+    }
+    
+    $new_movies = $result->fetch_all(MYSQLI_ASSOC);
+} catch (Exception $e) {
+    die("Erreur de base de données : " . $e->getMessage());
 }
 
 // Récupération des infos utilisateur
@@ -29,8 +45,7 @@ $role = $_SESSION['role'];
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        /* Global Styles */
-        :root {
+         :root {
             --primary-color: #e50914;
             --hover-color: #f40612;
             --dark-color: #141414;
@@ -235,15 +250,15 @@ $role = $_SESSION['role'];
     <!-- Barre de navigation supérieure -->
     <header class="navbar-cine">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold logo" href="#">
+            <a class="navbar-brand fw-bold logo text-white" href="#">
                 <i class="bi bi-camera-reels me-2"></i>MovieFlex
             </a>
             <div class="d-flex align-items-center auth-buttons">
-                <span class="text-white me-3">Bonjour, <?php echo htmlspecialchars($username); ?></span>
+                <span class="text-white me-3">Bienvenue, <?php echo htmlspecialchars($username); ?></span>
                 <span class="badge <?php echo $role === 'admin' ? 'badge-admin' : 'badge-user'; ?> me-3">
                     <?php echo ucfirst($role); ?>
                 </span>
-                <a href="logout.php" class="btn btn-rounded small">
+                <a href="logout.php" class="btn btn-light btn-sm">
                     <i class="bi bi-box-arrow-right"></i> Déconnexion
                 </a>
             </div>
@@ -282,7 +297,7 @@ $role = $_SESSION['role'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="delete_user.php">
+                            <a class="nav-link" href="users.php">
                                 <i class="bi bi-people"></i>
                                 Gestion des utilisateurs
                             </a>
@@ -298,15 +313,14 @@ $role = $_SESSION['role'];
                 </div>
             </nav>
 
-            <!-- Main content -->
+            <!-- Contenu principal -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <h1 class="section-title">
                     <i class="bi bi-camera-reels"></i> Tableau de bord
                 </h1>
 
-                <!-- Cards Section -->
+                <!-- Cartes de statistiques -->
                 <div class="row mb-4">
-                    <!-- Card Films populaires -->
                     <div class="col-md-4 mb-4">
                         <div class="card dashboard-card h-100">
                             <div class="card-body">
@@ -317,12 +331,11 @@ $role = $_SESSION['role'];
                                     </div>
                                     <i class="bi bi-fire card-icon"></i>
                                 </div>
-                                <a href="movies.php?filter=popular" class="stretched-link"></a>
+                                <a href="watchlist.php" class="stretched-link"></a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card Ma watchlist -->
                     <div class="col-md-4 mb-4">
                         <div class="card dashboard-card h-100">
                             <div class="card-body">
@@ -338,7 +351,6 @@ $role = $_SESSION['role'];
                         </div>
                     </div>
 
-                    <!-- Card Administration (visible seulement pour les admins) -->
                     <?php if ($role === 'admin'): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card dashboard-card h-100">
@@ -357,69 +369,35 @@ $role = $_SESSION['role'];
                     <?php endif; ?>
                 </div>
 
-                <!-- Section Derniers films ajoutés -->
+                <!-- Section Nouveautés -->
                 <div class="mb-4">
                     <h3 class="section-title"><i class="bi bi-arrow-up-circle"></i> Nouveautés</h3>
                     <div class="row">
-                        <!-- Exemple de film 1 -->
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                            <div class="recent-movie h-100">
-                                <img src="https://via.placeholder.com/300x450?text=Dune+2" class="movie-poster" alt="Film">
-                                <div class="p-3">
-                                    <h5>Dune: Partie 2</h5>
-                                    <p class="text-secondary">Science-fiction</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-secondary">2024</small>
-                                        <span class="badge bg-warning text-dark">4.8/5</span>
+                        <?php if (!empty($new_movies)): ?>
+                            <?php foreach ($new_movies as $movie): ?>
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                    <div class="recent-movie h-100" data-id="<?= $movie['id'] ?>">
+                                        <img src="<?= htmlspecialchars($movie['poster_path']) ?>" 
+                                             class="movie-poster" 
+                                             alt="<?= htmlspecialchars($movie['title']) ?>">
+                                        <div class="p-3">
+                                            <h5><?= htmlspecialchars($movie['title']) ?></h5>
+                                            <p class="text-secondary"><?= htmlspecialchars($movie['genre']) ?></p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-secondary">
+                                                    <?= date('Y', strtotime($movie['year'])) ?>
+                                                </small>
+                                                
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="col-12 text-center py-4">
+                                <p class="text-secondary">Aucune nouveauté disponible</p>
                             </div>
-                        </div>
-                        
-                        <!-- Exemple de film 2 -->
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                            <div class="recent-movie h-100">
-                                <img src="https://via.placeholder.com/300x450?text=The+Batman" class="movie-poster" alt="Film">
-                                <div class="p-3">
-                                    <h5>The Batman</h5>
-                                    <p class="text-secondary">Action</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-secondary">2022</small>
-                                        <span class="badge bg-warning text-dark">4.5/5</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Exemple de film 3 -->
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                            <div class="recent-movie h-100">
-                                <img src="https://via.placeholder.com/300x450?text=Oppenheimer" class="movie-poster" alt="Film">
-                                <div class="p-3">
-                                    <h5>Oppenheimer</h5>
-                                    <p class="text-secondary">Drame</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-secondary">2023</small>
-                                        <span class="badge bg-warning text-dark">4.7/5</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Exemple de film 4 -->
-                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                            <div class="recent-movie h-100">
-                                <img src="https://via.placeholder.com/300x450?text=Spider-Man" class="movie-poster" alt="Film">
-                                <div class="p-3">
-                                    <h5>Spider-Man: No Way Home</h5>
-                                    <p class="text-secondary">Super-héros</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-secondary">2021</small>
-                                        <span class="badge bg-warning text-dark">4.9/5</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -432,21 +410,21 @@ $role = $_SESSION['role'];
                                 <i class="bi bi-film text-primary me-2"></i>
                                 Vous avez ajouté "Dune" à votre watchlist
                             </div>
-                            <small class="text-secondary"><?php echo date('d/m/Y H:i', strtotime('-1 hour')); ?></small>
+                            <small class="text-secondary"><?= date('d/m/Y H:i', strtotime('-1 hour')) ?></small>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                 <i class="bi bi-star-fill text-warning me-2"></i>
                                 Vous avez noté "The Batman" 4/5
                             </div>
-                            <small class="text-secondary"><?php echo date('d/m/Y H:i', strtotime('-1 day')); ?></small>
+                            <small class="text-secondary"><?= date('d/m/Y H:i', strtotime('-1 day')) ?></small>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                 <i class="bi bi-check-circle text-success me-2"></i>
                                 Vous avez marqué "Inception" comme vu
                             </div>
-                            <small class="text-secondary"><?php echo date('d/m/Y H:i', strtotime('-2 days')); ?></small>
+                            <small class="text-secondary"><?= date('d/m/Y H:i', strtotime('-2 days')) ?></small>
                         </li>
                     </ul>
                 </div>
@@ -456,21 +434,19 @@ $role = $_SESSION['role'];
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Script pour rendre les cartes de film cliquables
         document.addEventListener('DOMContentLoaded', function() {
+            // Redirection vers les détails du film
             document.querySelectorAll('.recent-movie').forEach(card => {
                 card.addEventListener('click', function() {
-                    window.location.href = 'movie-details.php?id=' + this.dataset.id;
+                    const movieId = this.dataset.id;
+                    window.location.href = 'movie-details.php?id=' + movieId;
                 });
             });
-            
-            // Ajouter la classe scrolled à l'en-tête lors du défilement
+
+            // Gestion du scroll de l'en-tête
             window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    document.querySelector('header').classList.add('scrolled');
-                } else {
-                    document.querySelector('header').classList.remove('scrolled');
-                }
+                const header = document.querySelector('header');
+                header.classList.toggle('scrolled', window.scrollY > 50);
             });
         });
     </script>
