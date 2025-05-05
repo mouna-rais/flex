@@ -259,7 +259,7 @@ try {
                 </a>
                 <div class="d-flex align-items-center">
                     <span class="text-white me-3"><?= htmlspecialchars($_SESSION['username']) ?></span>
-                    <a href="../logout.php" class="btn btn-outline-light btn-sm">
+                    <a href="logout.php" class="btn btn-outline-light btn-sm">
                         <i class="bi bi-box-arrow-right"></i> Décnxexion
                     </a>
                 </div>
