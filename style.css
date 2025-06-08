@@ -1,4 +1,6 @@
 /* Global Styles */
+@import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
+
 :root {
     --primary-color: #e50914;
     --hover-color: #f40612;
@@ -84,9 +86,13 @@
   }
   
   .logo {
-    color: var(--primary-color);
-    font-weight: bold;
-    font-size: 2rem;
+    font-family: 'Bebas Neue', 'Arial Black', Arial, sans-serif;
+    color: #e50914; /* Rouge Netflix */
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #000, 4px 4px 8px #000; /* Effet ombre comme Netflix */
   }
   
   nav {
@@ -479,4 +485,3 @@
       font-size: 1.2rem;
     }
   }
-  
